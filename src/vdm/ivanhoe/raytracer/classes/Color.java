@@ -1,7 +1,7 @@
 package vdm.ivanhoe.raytracer.classes;
 
 /**
- *  Color using percentage values for r,g,b
+ *  Color using percentage values for r,g, b
  */
 public class Color {
     private double r, g, b;
