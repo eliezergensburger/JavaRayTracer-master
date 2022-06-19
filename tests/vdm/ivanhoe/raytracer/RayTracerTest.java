@@ -35,7 +35,7 @@ class RayTracerTest {
             rt.renderToJFrame(defaultScene(), graphics, WIDTH, HEIGHT);
             endNanoSeconds = System.nanoTime();
             graphics.dispose();
-            System.out.println("Result: " + getSecond(startNanoSeconds, endNanoSeconds) + " seconds");
+            System.out.println("Result : " + getSecond(startNanoSeconds, endNanoSeconds) + " seconds");
 //            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
     }

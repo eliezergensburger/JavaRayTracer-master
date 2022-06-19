@@ -1,7 +1,7 @@
 package vdm.ivanhoe.raytracer.classes;
 
 /**
- *  Camera
+ * Camera
  */
 public class Camera {
     private Vector forward;
