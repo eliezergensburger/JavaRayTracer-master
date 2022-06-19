@@ -1,23 +1,23 @@
 package vdm.ivanhoe.raytracer.classes;
 
-import vdm.ivanhoe.raytracer.interfaces.Thing;
+import vdm.ivanhoe.raytracer.interfaces.Intersectable;
 
 /**
  *  Intersection
  */
 public class Intersection {
-    private Thing thing = null;
+    private Intersectable intersectable = null;
     private Ray ray = null;
     private double dist = 0;
 
-    Intersection(Thing thing, Ray ray, double dist) {
-        this.thing = thing;
+    Intersection(Intersectable intersectable, Ray ray, double dist) {
+        this.intersectable = intersectable;
         this.ray = ray;
         this.dist = dist;
     }
 
-    public Thing getThing() {
-        return thing;
+    public Intersectable getThing() {
+        return intersectable;
     }
 
     public Ray getRay() {

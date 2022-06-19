@@ -1,23 +1,23 @@
 package vdm.ivanhoe.raytracer.classes;
 
-import vdm.ivanhoe.raytracer.interfaces.Thing;
+import vdm.ivanhoe.raytracer.interfaces.Intersectable;
 
 /**
  *  Scene
  */
 public class Scene {
-    private Thing[] things;
+    private Intersectable[] intersectables;
     private Light[] lights;
     private Camera camera;
 
-    public Scene(Thing[] things, Light[] lights, Camera camera) {
-        this.things = things;
+    public Scene(Intersectable[] intersectables, Light[] lights, Camera camera) {
+        this.intersectables = intersectables;
         this.lights = lights;
         this.camera = camera;
     }
 
-    public Thing[] getThings() {
-        return things;
+    public Intersectable[] getThings() {
+        return intersectables;
     }
 
     public Light[] getLights() {

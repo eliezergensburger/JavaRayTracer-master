@@ -1,12 +1,12 @@
 package vdm.ivanhoe.raytracer.classes;
 
 import vdm.ivanhoe.raytracer.interfaces.Surface;
-import vdm.ivanhoe.raytracer.interfaces.Thing;
+import vdm.ivanhoe.raytracer.interfaces.Intersectable;
 
 /**
  *  Sphere
  */
-public class Sphere implements Thing {
+public class Sphere implements Intersectable {
     private double radius2;
     private Vector center;
     private Surface surface;

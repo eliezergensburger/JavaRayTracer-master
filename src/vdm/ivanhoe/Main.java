@@ -3,7 +3,7 @@ package vdm.ivanhoe;
 import vdm.ivanhoe.raytracer.*;
 import vdm.ivanhoe.raytracer.classes.*;
 import vdm.ivanhoe.raytracer.classes.Color;
-import vdm.ivanhoe.raytracer.interfaces.Thing;
+import vdm.ivanhoe.raytracer.interfaces.Intersectable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +35,7 @@ public class Main {
 
         Graphics graphics = frame.getGraphics();
         startNanoSeconds = System.nanoTime();
-        rt.render(defaultScene(), graphics, WIDTH, HEIGHT);
+        rt.renderToJFrame(defaultScene(), graphics, WIDTH, HEIGHT);
         endNanoSeconds = System.nanoTime();
         graphics.dispose();
 
@@ -69,7 +69,7 @@ public class Main {
         Surfaces.ShinySurface shinySurface = surface.new ShinySurface();
 
         // Array with One checkerboard plane and Two Sphere
-        Thing[] things = {
+        Intersectable[] intersectables = {
                 new Plane(new Vector(0.0, 1.0, 0.0), 0.0, checkerBoardSurface),
                 new Sphere(new Vector(-0.5, 1.0, -0.25), 1.0, shinySurface),
                 new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, shinySurface)
@@ -83,7 +83,7 @@ public class Main {
                 new Light(new Vector(0.0, 3.5, 0.0), new Color(0.21, 0.21, 0.35))
         };
 
-        return new Scene(things, lights, new Camera(new Vector(3, 2, 4.0), new Vector(-1.0, 0.5, 0.0)));
+        return new Scene(intersectables, lights, new Camera(new Vector(3, 2, 4.0), new Vector(-1.0, 0.5, 0.0)));
     }
 
     static class ImageFrame extends JFrame {

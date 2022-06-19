@@ -19,7 +19,7 @@ class RayTracerTest {
     RayTracer rt = new RayTracer();
 
     @Test
-    void render() {
+    void renderToJFrame() {
 
             String title = "JavaRayTracer by Ivan \"VanDamM\" Kalininskiy (2017)";
 
@@ -32,7 +32,7 @@ class RayTracerTest {
 
             Graphics graphics = frame.getGraphics();
             startNanoSeconds = System.nanoTime();
-            rt.render(defaultScene(), graphics, WIDTH, HEIGHT);
+            rt.renderToJFrame(defaultScene(), graphics, WIDTH, HEIGHT);
             endNanoSeconds = System.nanoTime();
             graphics.dispose();
             System.out.println("Result: " + getSecond(startNanoSeconds, endNanoSeconds) + " seconds");

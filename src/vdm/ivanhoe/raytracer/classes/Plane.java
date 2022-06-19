@@ -1,12 +1,12 @@
 package vdm.ivanhoe.raytracer.classes;
 
 import vdm.ivanhoe.raytracer.interfaces.Surface;
-import vdm.ivanhoe.raytracer.interfaces.Thing;
+import vdm.ivanhoe.raytracer.interfaces.Intersectable;
 
 /**
  *  Plane
  */
-public class Plane implements Thing {
+public class Plane implements Intersectable {
     private Vector norm;
     private double offset;
     private Surface surface;

@@ -7,7 +7,7 @@ import vdm.ivanhoe.raytracer.classes.Vector;
 /**
  *  Thing
  */
-public interface Thing {
+public interface Intersectable {
     Intersection intersect(Ray ray);
     Vector normal(Vector pos);
     Surface surface = null;

@@ -2,7 +2,7 @@ package vdm.ivanhoe.raytracer;
 
 import vdm.ivanhoe.raytracer.classes.*;
 import vdm.ivanhoe.raytracer.classes.Color;
-import vdm.ivanhoe.raytracer.interfaces.Thing;
+import vdm.ivanhoe.raytracer.interfaces.Intersectable;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -64,11 +64,11 @@ public class RayTracer {
         return Color.plus(naturalColor, reflectedColor);
     }
 
-    private Color getReflectionColor(Thing thing, Vector pos, Vector normal, Vector rd, Scene scene, double depth) {
-        return Color.scale(thing.getSurface().reflect(pos), traceRay(new Ray(pos, rd), scene, depth + 1));
+    private Color getReflectionColor(Intersectable intersectable, Vector pos, Vector normal, Vector rd, Scene scene, double depth) {
+        return Color.scale(intersectable.getSurface().reflect(pos), traceRay(new Ray(pos, rd), scene, depth + 1));
     }
 
-    private Color addLight(Color color, Light light, Thing thing, Vector pos, Vector norm, Vector rd, Scene scene) {
+    private Color addLight(Color color, Light light, Intersectable intersectable, Vector pos, Vector norm, Vector rd, Scene scene) {
         Vector ldis = Vector.minus(light.getPos(), pos);
         Vector livec = Vector.normal(ldis);
         double neatIsect = testRay(new Ray(pos, livec), scene);
@@ -87,7 +87,7 @@ public class RayTracer {
             Color specularColor;
             if (specular > 0) {
                 specularColor = Color.scale(
-                        Math.pow(specular, thing.getSurface().getRoughness()),
+                        Math.pow(specular, intersectable.getSurface().getRoughness()),
                         light.getColor()
                 );
             } else {
@@ -96,18 +96,18 @@ public class RayTracer {
             return Color.plus(
                     color,
                     Color.plus(
-                            Color.times(thing.getSurface().diffuse(pos), lightColor),
-                            Color.times(thing.getSurface().specular(pos), specularColor)
+                            Color.times(intersectable.getSurface().diffuse(pos), lightColor),
+                            Color.times(intersectable.getSurface().specular(pos), specularColor)
                     )
             );
         }
     }
 
-    private Color getNaturalColor(Thing thing, Vector pos, Vector norm, Vector rd, Scene scene) {
+    private Color getNaturalColor(Intersectable intersectable, Vector pos, Vector norm, Vector rd, Scene scene) {
         Color initialColor = Color.defaultColor();
-        Color resultColor = addLight(initialColor, scene.getLights()[0], thing, pos, norm, rd, scene);
+        Color resultColor = addLight(initialColor, scene.getLights()[0], intersectable, pos, norm, rd, scene);
         for (int i = 1; i < scene.getLights().length; i++) {
-            resultColor = addLight(resultColor, scene.getLights()[i], thing, pos, norm, rd, scene);
+            resultColor = addLight(resultColor, scene.getLights()[i], intersectable, pos, norm, rd, scene);
         }
 
         return resultColor;
@@ -132,7 +132,7 @@ public class RayTracer {
         );
     }
 
-    public void render(Scene scene, Graphics graphics, int screenWidth, int screenHeight) {
+    public void renderToJFrame(Scene scene, Graphics graphics, int screenWidth, int screenHeight) {
         for (int y = 0; y < screenHeight; y++) {
             for (int x = 0; x < screenWidth; x++) {
                 Color color = traceRay(new Ray(scene.getCamera().getPos(), getPoint(x, y, scene.getCamera(), screenWidth, screenHeight)), scene, 0);
