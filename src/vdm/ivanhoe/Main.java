@@ -7,6 +7,7 @@ import vdm.ivanhoe.raytracer.interfaces.Thing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -16,8 +17,8 @@ import java.awt.image.BufferedImage;
  */
 public class Main {
 
-    private static final int WIDTH = 640;
-    private static final int HEIGHT = 640;
+    private static final int WIDTH =800;
+    private static final int HEIGHT = 800;
 
     public static void main(String[] args) {
         String title = "JavaRayTracer by Ivan \"VanDamM\" Kalininskiy (2017)";
@@ -27,37 +28,42 @@ public class Main {
         RayTracer rt = new RayTracer();
         long startNanoSeconds, endNanoSeconds;
 
-//        ImageFrame frame = new ImageFrame(title, WIDTH, HEIGHT);
-//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        frame.setVisible(true);
-//
-//        Graphics graphics = frame.getGraphics();
-//        startNanoSeconds = System.nanoTime();
-//        rt.render(defaultScene(), graphics, WIDTH, HEIGHT);
-//        endNanoSeconds = System.nanoTime();
-//        System.out.println("Result : " + getSecond(startNanoSeconds, endNanoSeconds) + " seconds");
+        //using Jframe
+        ImageFrame frame = new ImageFrame(title, WIDTH, HEIGHT);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
 
+        Graphics graphics = frame.getGraphics();
+        startNanoSeconds = System.nanoTime();
+        rt.render(defaultScene(), graphics, WIDTH, HEIGHT);
+        endNanoSeconds = System.nanoTime();
+        graphics.dispose();
+
+        System.out.println("Result 1 : " + getSecond(startNanoSeconds, endNanoSeconds) + " seconds");
+          //writing to file
         BufferedImage bufferedImage = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = bufferedImage.createGraphics();
 
         startNanoSeconds = System.nanoTime();
         rt.renderToImage(defaultScene(), g2d,WIDTH,HEIGHT,bufferedImage,"nice");
         endNanoSeconds = System.nanoTime();
+        g2d.dispose();
+        System.out.println("Result 2 : " + getSecond(startNanoSeconds, endNanoSeconds) + " seconds");
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
-        System.out.println("Result : " + getSecond(startNanoSeconds, endNanoSeconds) + " seconds");
     }
 
     /**
      *  With convert NanoSecond To Second
      */
-    private static double getSecond(long startNanoSeconds, long endNanoSeconds) {
+    public static double getSecond(long startNanoSeconds, long endNanoSeconds) {
         return (double) (endNanoSeconds - startNanoSeconds) / 1000000000.0;
     }
 
     /**
      *  Return Scene with 2 shiny Sphere, 1 checkerboard Plane and 4 lights
      */
-    private static Scene defaultScene() {
+    public static Scene defaultScene() {
         Surfaces surface = new Surfaces();
         Surfaces.CheckerBoardSurface checkerBoardSurface = surface.new CheckerBoardSurface();
         Surfaces.ShinySurface shinySurface = surface.new ShinySurface();
