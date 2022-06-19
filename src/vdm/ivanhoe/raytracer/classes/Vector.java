@@ -1,7 +1,7 @@
 package vdm.ivanhoe.raytracer.classes;
 
 /**
- *  Vector
+ *  Vector basic class for Vector and Point in 3D
  */
 public class Vector {
     private double x, y, z;
