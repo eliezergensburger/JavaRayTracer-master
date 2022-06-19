@@ -152,7 +152,8 @@ public class RayTracer {
                 graphics.fillRect(x, y, x + 1, y + 1);
             }
         }
-            try {
+        
+        try {
             File file = new File(FOLDER_PATH + '/' + imageName + ".png");
             ImageIO.write(bufferedImage,"png",file);
         } catch (IOException e) {
@@ -162,17 +163,4 @@ public class RayTracer {
 
 
         }
-//    public void writeimage(String imageName, JFrame frame) {
-////         BufferedImage image = getScreenShot(frame);
-//        BufferedImage image = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_INT_RGB);
-//        Graphics2D graphics2D = image.createGraphics();
-//        frame.paint(graphics2D);
-//       try {
-//            File file = new File(FOLDER_PATH + '/' + imageName + ".png");
-//            ImageIO.write(image, "png", file);
-//        } catch (IOException e) {
-//            logger.log(Level.SEVERE, "I/O error", e);
-//            throw new IllegalStateException("I/O error - may be missing directory " + FOLDER_PATH, e);
-//        }
-//    }
 }
