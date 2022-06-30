@@ -16,8 +16,8 @@ import java.util.logging.Logger;
  * RayTracer
  */
 public class RayTracer {
-    private int maxDepth = 5;
-    private Logger logger = Logger.getLogger("ImageWriter");
+    private final int maxDepth = 5;
+    private final Logger logger = Logger.getLogger("ImageWriter");
 
     private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
 
@@ -152,15 +152,13 @@ public class RayTracer {
                 graphics.fillRect(x, y, x + 1, y + 1);
             }
         }
-        
+
         try {
             File file = new File(FOLDER_PATH + '/' + imageName + ".png");
-            ImageIO.write(bufferedImage,"png",file);
+            ImageIO.write(bufferedImage, "png", file);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "I/O error", e);
             throw new IllegalStateException("I/O error - may be missing directory " + FOLDER_PATH, e);
         }
-
-
-        }
+    }
 }
